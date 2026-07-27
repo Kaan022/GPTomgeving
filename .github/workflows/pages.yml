@@ -1,4 +1,4 @@
-name: Deploy NextMatch Manager OS
+name: Deploy private NextMatch Coach OS
 
 on:
   push:
@@ -22,9 +22,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Build private coach app
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          mkdir -p _site/assets _site/supabase
+          cp index.html _site/index.html
+          cp assets/app.css assets/core.js assets/views.js assets/boot.js _site/assets/
+          cp supabase/schema.sql _site/supabase/schema.sql
+          python - <<'PY'
+          import json, os, pathlib
+          config = {
+              "supabaseUrl": os.getenv("SUPABASE_URL", ""),
+              "supabaseAnonKey": os.getenv("SUPABASE_ANON_KEY", "")
+          }
+          pathlib.Path("_site/assets/runtime-config.js").write_text(
+              "window.NEXTMATCH_CONFIG = " + json.dumps(config) + ";\n",
+              encoding="utf-8"
+          )
+          PY
+          touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
