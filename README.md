@@ -1,31 +1,38 @@
-# NextMatch Manager OS
+# NextMatch Private Coach OS
 
-Een data-rijk voetbalmanagementsysteem voor ambitieuze JO13–JO19-trainers en jeugdopleidingen.
+Een beveiligde, generieke coachworkspace voor trainers op ieder niveau: jeugd, senioren, recreatief, prestatief en high performance.
 
-## Live demo
+## Live app
 
 `https://kaan022.github.io/GPTomgeving/`
 
-GitHub Pages moet mogelijk éénmalig onder **Settings → Pages → Source: GitHub Actions** worden geactiveerd.
+De loginpagina is publiek bereikbaar; alle coachdata staat achter Supabase Auth en Row Level Security. Iedere gebruiker krijgt een eigen workspace en ziet alleen de eigen teams, debriefs, principes en instellingen.
 
-## Wat de demo bevat
+## Functionaliteit
 
-- Football Manager-achtige managementcockpit met een eigen visuele identiteit;
-- Manager’s Desk, wedstrijddebrief, Training Centre en Tactics Board;
-- browser speech-to-text en text-to-speech;
-- Wilhelmus O17-2 speelwijze: 1-3-2-5 in balbezit en 4-1-2-1-2 zonder bal;
-- periodisering met hoofdthema, tegenhangend thema en wedstrijdtransfer;
-- Video Lab met transparant gemarkeerde demoanalyse;
-- VC2/VC3 Portfolio Cockpit en PVB-evidencematrix;
-- responsive mobiele interface.
+- persoonlijke registratie en login;
+- uitgebreide intake in vijf stappen;
+- meerdere teams per gebruiker;
+- profiel, club, team, speelwijze en voorkeuren later wijzigen;
+- teams en workspacegegevens verwijderen;
+- Manager’s Desk;
+- wedstrijddebrief met speech-to-text en text-to-speech;
+- trainingsweek en tactiekbord;
+- teamidentiteit en principes;
+- Video Intelligence-roadmap;
+- responsive desktop- en mobiele interface.
 
-## Documentatie
+## Eenmalige activatie
 
-- `docs/PRODUCT_BLUEPRINT.md` — product, voetbalmethodiek, VC-koppeling en commerciële volgorde.
-- `docs/MODEL_ARCHITECTURE.md` — speech-, video- en tactische modelarchitectuur.
+1. Maak een gratis Supabase-project.
+2. Voer `supabase/schema.sql` uit in de SQL Editor.
+3. Voeg in GitHub Actions secrets toe: `SUPABASE_URL` en `SUPABASE_ANON_KEY`.
+4. Kies bij GitHub Pages als source: **GitHub Actions**.
 
-## Eerlijke productiestatus
+## Privacy-architectuur
 
-De publieke demo is een statische front-end en gebruikt geen echte accounts, betalingen of server-side AI-inferentie. De volledige lokale bronset bevat daarnaast een FastAPI ML-service scaffold, Supabase-schema met Row Level Security, uitgebreidere UI en deploymentbestanden.
+De database bevat één workspace per authenticated user. RLS-policies vergelijken iedere lees-, schrijf-, wijzig- en verwijderactie met `auth.uid()`. De anon key mag in de browser staan; de service-role key hoort nooit in de front-end of GitHub Pages.
 
-Voor Veo-achtige productieanalyse zijn een consented video-dataset, labels, GPU-inferentie, modellicentiecontrole en human-in-the-loop validatie noodzakelijk.
+## Productiestatus
+
+Login, tenantisolatie, onboarding, wijziging en verwijdering zijn gebouwd. Videoanalyse is nog een transparante productroadmap en geen werkend Veo-alternatief. Echte AI- en video-inferentie worden later via afgeschermde server-side services toegevoegd.
