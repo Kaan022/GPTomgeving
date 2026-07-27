@@ -1,57 +1,58 @@
-# NextMatch Manager OS — Product Blueprint
+# NextMatch Private Coach OS — Product Blueprint
 
-## Core workflow
-`wedstrijd → debrief → analyse → weekdoel → twee trainingen → wedstrijdplan → uitvoering → evaluatie → bewijs`
+## Kernworkflow
 
-The tool is deliberately organised like a football-management operating system rather than a chatbot or exercise library.
+`wedstrijd → debrief → analyse → weekdoel → trainingen → wedstrijdplan → uitvoering → evaluatie`
 
-## Manager modules
-1. **Manager’s Desk** — inbox, readiness, open decisions, upcoming match and weekly cycle.
-2. **Match Centre** — opponent profile, game plan, scenarios and observable indicators.
-3. **Debrief Room** — speech or text reflection, separated into facts, interpretations and interventions.
-4. **Training Centre** — periodised sessions with main theme, counter-theme, representative resistance and evaluation criteria.
-5. **Tactics Board** — team tasks and shapes in and out of possession.
-6. **Video Lab** — video upload, event spotting, 2D radar, tactical metrics and clip review.
-7. **VC Portfolio** — evidence generated during normal coaching work.
-8. **Club DNA** — versioned playing principles, coach language and ownership.
+NextMatch is bewust ingericht als een voetbal-operating-system en niet als chatbot of algemene oefenstoffendatabase.
 
-## Wilhelmus O17-2 seed model
-- Age: O17; development focus: playing as a team.
-- In possession: 1-3-2-5.
-- Left back becomes the left central defender.
-- Right back attacks high or in the half-space.
-- 6 and 8 connect underneath the ball.
-- Out of possession: 4-1-2-1-2.
-- 9 and 10 initiate pressure and force play to one side.
-- Far winger starts half-half.
-- Main theme: defend high on the opponent’s half.
-- Structural safeguard: 3+2 rest defence.
+## Doelgroep
 
-## KNVB-oriented evidence design
-### VC2
-- PVB 1 — coaching matches.
-- PVB 2 — delivering training sessions.
-- PVB 3 — collaborating with the support staff.
+Iedere trainer, ongeacht opleiding, leeftijdscategorie, gender, niveau of speelwijze. De tool schrijft geen standaardvoetbal voor, maar leert de eigen context, taal, principes, middelen en ambities van de gebruiker.
 
-### VC3
-- PVB 1 — coaching matches.
-- PVB 2 — delivering training sessions.
-- PVB 3 — leading the support staff.
-- PVB 4 — recognising and developing talent.
-- PVB 5 — periodising a playing style for development and performance.
+## Modules
 
-NextMatch never claims that generated artefacts automatically pass an assessment. It structures evidence and makes reflection, decisions and development traceable.
+1. **Manager’s Desk** — prioriteiten, open beslissingen en de actuele trainingsweek.
+2. **Debrief Room** — spraak- of tekstreflectie, gescheiden in feiten, hypotheses, interventies en criteria.
+3. **Training Centre** — sessies met samenhang, representatieve weerstand en wedstrijdtransfer.
+4. **Tactics Board** — eigen formaties, teamtaken, triggers en afstemming.
+5. **Video Lab** — roadmap voor upload, tracking, events, 2D-posities en menselijke clipreview.
+6. **Teamidentiteit** — versieerbare principes en coachtaal.
+7. **Instellingen** — trainer, club, teams, voorkeuren, privacy en verwijdering.
 
-## Commercial sequence
-1. Paid coach beta: debrief, training week and portfolio.
-2. Retention: team memory and coach corrections.
-3. Club pilot: shared Club DNA and quality standards.
-4. Video add-on: team analysis, event clips and tactical metrics.
-5. Dataset flywheel: opt-in labels and human corrections improve specialist models.
+## Personalisatie
 
-## Non-goals for the first paid release
-- Automatic player identity.
-- Medical or workload advice.
-- Unsupervised talent rankings.
-- Claims that video analysis is error-free.
-- Native apps before recurring web usage is proven.
+De onboarding verzamelt uitsluitend informatie die de output aantoonbaar verbetert:
+
+- rol, ervaring en gewenste diepgang;
+- club, team, categorie, niveau en seizoen;
+- selectie, trainingsdagen, duur, veldruimte en staf;
+- formaties in en uit balbezit;
+- speelwijze, prioriteiten en teamprincipes;
+- feedbackstijl, speechfuncties, bewaartermijn en videotoestemming.
+
+Alles blijft later wijzigbaar. Een gebruiker kan meerdere teams beheren en ieder team afzonderlijk verwijderen.
+
+## Privacy en tenantisolatie
+
+- Iedere authenticated gebruiker heeft één eigen workspace.
+- Database-RLS controleert `auth.uid()` bij select, insert, update en delete.
+- Browsermanipulatie kan de databasepolicy niet omzeilen.
+- Geen service-role key in de front-end.
+- Werk primair op teamniveau en vermijd onnodige persoonsgegevens en medische gegevens.
+
+## Commerciële volgorde
+
+1. Betaalde coachbeta: debrief, trainingsweek en teamgeheugen.
+2. Retentie: terugkerende weekcyclus en correcties van trainers.
+3. Clubpilot: meerdere trainers, gedeelde principes en rollen.
+4. Video-add-on: clips en tactische teammetrics.
+5. Opt-in datavliegwiel: menselijke correcties verbeteren gespecialiseerde modellen.
+
+## Niet doen in de eerste betaalde release
+
+- automatische spelersidentiteit;
+- medisch of individueel belastbaarheidsadvies;
+- onbegeleide talentscores;
+- claims dat videoanalyse foutloos is;
+- native apps voordat terugkerend webgebruik bewezen is.
