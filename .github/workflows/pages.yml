@@ -24,8 +24,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build private coach app
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_URL: https://ppsmpvofqilrnjsggcof.supabase.co
+          SUPABASE_PUBLISHABLE_KEY: sb_publishable_hcWguTlxL-FSQuHi3Qq7IQ_Cj5sIu4g
         run: |
           mkdir -p _site/assets _site/supabase
           cp index.html _site/index.html
@@ -35,7 +35,7 @@ jobs:
           import json, os, pathlib
           config = {
               "supabaseUrl": os.getenv("SUPABASE_URL", ""),
-              "supabaseAnonKey": os.getenv("SUPABASE_ANON_KEY", "")
+              "supabaseAnonKey": os.getenv("SUPABASE_PUBLISHABLE_KEY", "")
           }
           pathlib.Path("_site/assets/runtime-config.js").write_text(
               "window.NEXTMATCH_CONFIG = " + json.dumps(config) + ";\n",
