@@ -30,6 +30,8 @@ jobs:
           node --check assets/localized-pdf.js
           node --check assets/release-v9.js
           node --check assets/wilhelmus-demo.js
+          node --check assets/product-v12.js
+          node --check assets/pdf-v12.js
           node --check assets/boot.js
       - name: Build private coach app
         run: |
