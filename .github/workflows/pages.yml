@@ -23,25 +23,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build private coach app
-        env:
-          SUPABASE_URL: https://ppsmpvofqilrnjsggcof.supabase.co
-          SUPABASE_PUBLISHABLE_KEY: sb_publishable_hcWguTlxL-FSQuHi3Qq7IQ_Cj5sIu4g
         run: |
-          mkdir -p _site/assets _site/supabase
+          mkdir -p _site/supabase
           cp index.html _site/index.html
-          cp assets/app.css assets/core.js assets/views.js assets/boot.js _site/assets/
+          cp -r assets _site/assets
           cp supabase/schema.sql _site/supabase/schema.sql
-          python - <<'PY'
-          import json, os, pathlib
-          config = {
-              "supabaseUrl": os.getenv("SUPABASE_URL", ""),
-              "supabaseAnonKey": os.getenv("SUPABASE_PUBLISHABLE_KEY", "")
-          }
-          pathlib.Path("_site/assets/runtime-config.js").write_text(
-              "window.NEXTMATCH_CONFIG = " + json.dumps(config) + ";\n",
-              encoding="utf-8"
-          )
-          PY
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
