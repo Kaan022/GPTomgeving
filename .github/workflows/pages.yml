@@ -24,9 +24,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate application scripts
         run: |
-          node --check assets/i18n-help.js
+          node --check assets/language-core.js
           node --check assets/localized-pdf.js
           node --check assets/release-v9.js
+          node --check assets/wilhelmus-demo.js
       - name: Build private coach app
         run: |
           mkdir -p _site/supabase
