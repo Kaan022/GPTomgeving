@@ -22,8 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate application scripts
+      - name: Validate production scripts
         run: |
+          set -e
           node --check assets/auth-ux.js
           node --check assets/app-polish.js
           node --check assets/language-core.js
@@ -36,12 +37,13 @@ jobs:
           node --check assets/edge-pdf-v13.js
           node --check assets/drawing-v14.js
           node --check assets/pdf-v14.js
-          node --check assets/mobile-v15.js
-          node --check assets/periodisation-ai-v16.js
-          node --check assets/periodisation-mobile-v16.js
+          node --check assets/boot-v17.js
+          node --check assets/mobile-v17.js
+          node --check assets/periodisation-ai-v17.js
           node --check service-worker.js
-          node --check assets/boot.js
           node --check ai-trust-passport/assets/app.js
+      - name: Smoke test week planner
+        run: node tests/weekplanner-smoke.js
       - name: Validate PWA manifest
         run: node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8'))"
       - name: Build private coach app and AI Trust Passport
