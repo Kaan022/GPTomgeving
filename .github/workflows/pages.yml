@@ -32,6 +32,8 @@ jobs:
           node --check assets/wilhelmus-demo.js
           node --check assets/product-v12.js
           node --check assets/pdf-v12.js
+          node --check assets/platform-v13.js
+          node --check assets/edge-pdf-v13.js
           node --check assets/boot.js
       - name: Build private coach app
         run: |
