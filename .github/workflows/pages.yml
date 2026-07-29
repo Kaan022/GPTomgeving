@@ -37,6 +37,7 @@ jobs:
           node --check assets/drawing-v14.js
           node --check assets/pdf-v14.js
           node --check assets/mobile-v15.js
+          node --check assets/periodisation-ai-v16.js
           node --check service-worker.js
           node --check assets/boot.js
       - name: Validate PWA manifest
