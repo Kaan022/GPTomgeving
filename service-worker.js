@@ -9,7 +9,9 @@ const APP_SHELL=[
   '/GPTomgeving/assets/mobile-v15.css',
   '/GPTomgeving/assets/mobile-v15.js',
   '/GPTomgeving/assets/periodisation-ai-v16.css',
-  '/GPTomgeving/assets/periodisation-ai-v16.js'
+  '/GPTomgeving/assets/periodisation-ai-v16.js',
+  '/GPTomgeving/assets/periodisation-mobile-v16.css',
+  '/GPTomgeving/assets/periodisation-mobile-v16.js'
 ];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
