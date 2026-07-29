@@ -36,11 +36,17 @@ jobs:
           node --check assets/edge-pdf-v13.js
           node --check assets/drawing-v14.js
           node --check assets/pdf-v14.js
+          node --check assets/mobile-v15.js
+          node --check service-worker.js
           node --check assets/boot.js
+      - name: Validate PWA manifest
+        run: node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8'))"
       - name: Build private coach app
         run: |
           mkdir -p _site/supabase
           cp index.html _site/index.html
+          cp manifest.webmanifest _site/manifest.webmanifest
+          cp service-worker.js _site/service-worker.js
           cp -r assets _site/assets
           cp supabase/schema.sql _site/supabase/schema.sql
           touch _site/.nojekyll
