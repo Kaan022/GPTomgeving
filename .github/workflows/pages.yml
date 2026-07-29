@@ -43,6 +43,8 @@ jobs:
           node --check assets/weekplanner-migration-v17.js
           node --check service-worker.js
           node --check ai-trust-passport/assets/app.js
+      - name: Smoke test application startup
+        run: node tests/startup-smoke.js
       - name: Smoke test week planner
         run: node tests/weekplanner-smoke.js
       - name: Validate PWA manifest
