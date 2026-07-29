@@ -1,4 +1,4 @@
-const CACHE_NAME='nextmatch-v15';
+const CACHE_NAME='nextmatch-v16';
 const APP_SHELL=[
   '/GPTomgeving/',
   '/GPTomgeving/index.html',
@@ -7,7 +7,9 @@ const APP_SHELL=[
   '/GPTomgeving/assets/nextmatch-logo-light.svg',
   '/GPTomgeving/assets/product-v12.css',
   '/GPTomgeving/assets/mobile-v15.css',
-  '/GPTomgeving/assets/mobile-v15.js'
+  '/GPTomgeving/assets/mobile-v15.js',
+  '/GPTomgeving/assets/periodisation-ai-v16.css',
+  '/GPTomgeving/assets/periodisation-ai-v16.js'
 ];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
