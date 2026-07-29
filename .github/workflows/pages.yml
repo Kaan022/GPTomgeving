@@ -41,9 +41,10 @@ jobs:
           node --check assets/periodisation-mobile-v16.js
           node --check service-worker.js
           node --check assets/boot.js
+          node --check ai-trust-passport/assets/app.js
       - name: Validate PWA manifest
         run: node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8'))"
-      - name: Build private coach app
+      - name: Build private coach app and AI Trust Passport
         run: |
           mkdir -p _site/supabase
           cp index.html _site/index.html
@@ -51,6 +52,7 @@ jobs:
           cp service-worker.js _site/service-worker.js
           cp -r assets _site/assets
           cp supabase/schema.sql _site/supabase/schema.sql
+          cp -r ai-trust-passport _site/ai-trust-passport
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
