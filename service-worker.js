@@ -10,6 +10,7 @@ const APP_SHELL=[
   '/GPTomgeving/assets/periodisation-ai-v16.css',
   '/GPTomgeving/assets/periodisation-mobile-v16.css',
   '/GPTomgeving/assets/periodisation-ai-v17.js',
+  '/GPTomgeving/assets/weekplanner-migration-v17.js',
   '/GPTomgeving/assets/boot-v17.js'
 ];
 
