@@ -18,10 +18,10 @@ async function resetNextMatchCache(){
 
 function render(){
   try{
-    if(!C.supabaseUrl||!C.supabaseAnonKey)return setup();
-    if(window.NM_PASSWORD_RECOVERY)return passwordRecovery();
-    if(!user)return auth();
-    if(!ws?.data?.onboarded)return onboard();
+    if(!C.supabaseUrl||!C.supabaseAnonKey){setup();nmBootCompleted=true;return}
+    if(window.NM_PASSWORD_RECOVERY){passwordRecovery();nmBootCompleted=true;return}
+    if(!user){auth();nmBootCompleted=true;return}
+    if(!ws?.data?.onboarded){onboard();nmBootCompleted=true;return}
     const views={desk,debrief,training,periodisation,tactics,video,identity,settings};
     A.className='';
     A.innerHTML=(views[route]||desk)();
