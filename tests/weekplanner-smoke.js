@@ -1,0 +1,18 @@
+const fs=require('fs');
+const vm=require('vm');
+const code=fs.readFileSync('assets/periodisation-ai-v17.js','utf8');
+const context={console,Date,Math,JSON,Intl,setTimeout:fn=>fn(),clearTimeout:()=>{},crypto:{randomUUID:()=>`id-${Math.random()}`},document:{querySelector:()=>null,querySelectorAll:()=>[]},ws:{data:{profile:{name:'Test Coach'},club:{name:'Test Club'},prefs:{language:'nl'},teams:[{id:'team-1',name:'JO17-1',category:'JO17',level:'Divisie',days:'dinsdag 18:45; donderdag 20:15',duration:75,matchday:'zaterdag',squad:18,principles:['Hoog druk zetten'],prior:['Restverdediging 3+2']}],activeTeam:'team-1',matchReviews:{'team-1':{debrief:'Na balverlies stond het centrum open.',intervention:'Restverdediging 3+2 verbeteren',opponent:'Test FC'}},periodisation:{'team-1':{cycles:[{focus:'Restverdediging en omschakeling'}],activeCycle:0,weekGoal:'Restverdediging'}}}},route:'periodisation',save(){},notify(){},render(){},go(){},shell(body){return`<main>${body}</main>`},nextMatchLanguage(){return'nl'}};
+context.team=()=>context.ws.data.teams.find(item=>item.id===context.ws.data.activeTeam);
+context.window=context;
+vm.createContext(context);
+vm.runInContext(code,context,{filename:'periodisation-ai-v17.js'});
+if(typeof context.periodisation!=='function')throw new Error('periodisation view missing');
+const html=context.periodisation();
+if(!html.includes('Weekkalender'))throw new Error('calendar did not render');
+const store=context.ws.data.smartPeriodisation?.['team-1'];
+const week=Object.values(store?.weeks||{})[0];
+if(!week||week.sessions.length!==2)throw new Error('expected two planned sessions');
+if(!week.theme||!week.counterTheme)throw new Error('theme pair missing');
+context.useCalendarSession(week.weekStart,week.sessions[0].id);
+if(!context.ws.data.sessionPlans?.['team-1'])throw new Error('session was not promoted to active training');
+console.log('Weekplanner smoke test passed');
