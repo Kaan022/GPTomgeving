@@ -1,0 +1,46 @@
+(()=>{
+ 'use strict';
+ const params=new URLSearchParams(location.search);
+ window.NM_PUBLIC_DEMO=params.get('demo')==='1';
+ if(!window.NM_PUBLIC_DEMO)return;
+ const id=()=>crypto.randomUUID();
+ const today=new Date();
+ const pad=n=>String(n).padStart(2,'0');
+ const iso=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+ const add=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+ const monday=d=>{const x=new Date(d);x.setHours(12,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return x};
+ const weekStart=iso(monday(today));
+ const t1='demo-o17-2',t2='demo-o17-1',t3='demo-o15-1';
+ function block(start,duration,title,type,intensity,organization,dimensions,coaching){return{id:id(),start,duration,title,type,intensity,organization,dimensions,players:'',rules:'Wedstrijdecht waar mogelijk; het leerdoel bepaalt de scoringsregel.',coaching,variation:'Verhoog of verlaag weerstand op basis van de uitvoering.',methodicalStep:'Van herkennen naar zelfstandig uitvoeren.',win:'Bonus voor zichtbaar gewenst teamgedrag.',drawingObjects:[]}}
+ function session(title,date,start,focus,counter){return{id:id(),date,start,duration:75,title,focus,counterTheme:counter,intensity:'High',status:'suggested',objective:{who:'Het team en de betrokken linies',what:focus,where:'Wedstrijdechte ruimtes',when:'Bij herkenbare wedstrijdtriggers',which:'Gezamenlijk herkennen, afstemmen en uitvoeren'},blocks:[block(start,10,'Rondo 5 tegen 2','Opening game','Medium','Twee groepen; balbezit tegen twee verdedigers.','12 × 10 m','Vooractie, open lichaam en directe reactie na balverlies.'),block('19:00',18,'Principevorm vanuit de speelwijze','Principevorm','High','Opbouw tegen druk met vaste startposities en gerichte scoringszones.','40 × 35 m','Trigger herkennen, samen doorstappen en de as bewaken.'),block('19:18',22,'Teamtactische hoofdvorm','Hoofdvorm','High','Wedstrijdgerichte aantallen met groot doel en counterdoelen.','60 × 50 m','Afstanden tussen linies, drukrichting en restverdediging.'),block('19:40',25,'Grote partijvorm','Wedstrijdvorm','High','Vrij spel met bonuspunt voor het weekthema.','70 × 60 m','Minder coachen; gedrag moet onder weerstand zelfstandig zichtbaar worden.')]}}
+ const tue=add(monday(today),1),thu=add(monday(today),3),sat=add(monday(today),5);
+ const plan1={id:id(),weekStart,generatedAt:new Date().toISOString(),status:'suggested',confidence:88,theme:{title:'Hoog drukzetten en de opbouw sturen',behaviour:'9 bepaalt de richting, 10 schermt de as en de rest sluit gezamenlijk door.',phase:'Verdedigen fase 1',zone:'Helft tegenstander',criterion:'Tegenstander binnen acht seconden tot lange bal of balverlies dwingen.'},counterTheme:{title:'Onder druk uitspelen via keeper en as',behaviour:'Vrije man herkennen en via derde man onder de eerste druklijn uitspelen.'},rationale:['Laatste wedstrijd liet te late flankdruk zien.','Actieve cyclus focust op pressingtriggers en collectief doorstappen.','Clubprincipe: vooruit verdedigen met compact centrum.'],match:{date:iso(sat),opponent:'Forum Sport O17-1',time:'12:30'},sessions:[session('Training 1 · herkennen en ontwikkelen',iso(tue),'18:45','Hoog drukzetten en de opbouw sturen','Onder druk uitspelen'),session('Training 2 · uitvoeren en transfer',iso(thu),'20:15','Hoog drukzetten onder wedstrijdweerstand','Onder druk uitspelen')]};
+ const plan2={...plan1,id:id(),theme:{...plan1.theme,title:'Opbouwen onder hoge druk'},counterTheme:{...plan1.counterTheme,title:'Hoog drukzetten'},match:{date:iso(sat),opponent:'Quick O17-1',time:'10:30'},sessions:[session('Training 1',iso(tue),'19:00','Opbouwen onder hoge druk','Hoog drukzetten'),session('Training 2',iso(thu),'19:00','Opbouwen onder hogere weerstand','Hoog drukzetten')]};
+ const plan3={...plan1,id:id(),theme:{...plan1.theme,title:'Restverdediging 3+2'},counterTheme:{...plan1.counterTheme,title:'Eerste actie na balverovering vooruit'},match:{date:iso(sat),opponent:'DUNO O15-1',time:'11:00'},sessions:[session('Training 1',iso(tue),'18:00','Restverdediging 3+2','Omschakelen naar aanvallen'),session('Training 2',iso(thu),'18:00','Restverdediging onder wedstrijdweerstand','Omschakelen naar aanvallen')]};
+ window.createPublicDemoWorkspace=()=>({
+  user_id:'public-demo',
+  data:{
+   onboarded:true,
+   profile:{name:'Demo Trainer',role:'Hoofd jeugdopleiding',depth:'High performance'},
+   club:{name:'Wilhelmus · publieke demo',country:'Nederland',primaryColor:'#F2C300',secondaryColor:'#0B1724'},
+   prefs:{language:'nl',speech:true,tts:true,simpleMobile:true},
+   activeTeam:t1,
+   teams:[
+    {id:t1,name:'O17-2',category:'JO17',level:'5e divisie',season:'2026-2027',squad:18,days:'Dinsdag 18:45 · Donderdag 20:15',duration:75,matchday:'Zaterdag',field:'Half / heel veld',staff:'Hoofdtrainer + 2 assistenten',fin:'3-2-5',fout:'4-1-2-1-2',style:'Aanvallend 1-3-2-5; zonder bal gezamenlijk hoog drukzetten en de as sluiten.',prior:['Hoog drukzetten','Restverdediging 3+2'],principles:['9 en 10 vormen het eerste drukduo','Geen trigger betekent compact blijven','Verre winger staat half-half','6 en 8 bewaken samen balans en tweede bal','Na balverlies direct counterpressen of centrum herstellen'],nextOpponent:'Forum Sport O17-1',nextMatchDate:iso(sat)},
+    {id:t2,name:'O17-1',category:'JO17',level:'Divisie',season:'2026-2027',squad:18,days:'Dinsdag · Donderdag',duration:80,matchday:'Zaterdag',staff:'Trainer O17-1',fin:'3-2-5',fout:'4-3-3',style:'Dominant opbouwen en hoge veldbezetting.',prior:['Opbouwen onder druk'],principles:['Vrije man herkennen','Derde man gebruiken','Restverdediging bewaken'],nextOpponent:'Quick O17-1',nextMatchDate:iso(sat)},
+    {id:t3,name:'O15-1',category:'JO15',level:'Hoofdklasse',season:'2026-2027',squad:17,days:'Dinsdag · Donderdag',duration:75,matchday:'Zaterdag',staff:'Trainer O15-1',fin:'3-2-5',fout:'4-3-3',style:'Initiatief met bal en agressief reageren na balverlies.',prior:['Restverdediging'],principles:['Vijf banen bezetten','3+2 onder de bal','Eerste actie na winst vooruit'],nextOpponent:'DUNO O15-1',nextMatchDate:iso(sat)}
+   ],
+   debrief:'Bij de pass naar de back sprong de winger te laat. Daardoor moest het middenveld te ver uitstappen en ontstond ruimte door de as. Na hoge balwinst was de eerste actie vaak terug in de druk.',
+   analysis:{fact:'Flankdruk kwam te laat en de as werd meerdere keren open.',hyp:'Trigger en rolverdeling worden nog niet vroeg genoeg gezamenlijk herkend.',action:'Train de pass naar de back als collectieve trigger.',criterion:'Geen vrije binnenpass na de pass naar de back.'},
+   matchReviews:{[t1]:{opponent:'Spijkenisse O17-1',date:iso(add(today,-3)),result:'8-3',debrief:'Eerste helft was de opbouw goed. Tweede helft zakte de uitvoering in opbouw en drukzetten weg.',facts:'Opbouwfouten en niet volhouden van drukafspraken leidden tot counters.',patterns:'Te late flankdruk en onvoldoende balans van 6/8.',hypotheses:'Onder hogere weerstand vervallen spelers in individueel gedrag.',intervention:'Collectieve pressingtrigger en balans onder de bal trainen.',criterion:'Geen vrije binnenpass na de flanktrigger.',staffNotes:'Donderdag minder coachen en gedrag laten ontstaan.'}},
+   periodisation:{[t1]:{activeCycle:1,weekGoal:'Pressingtriggers en flankval',cycles:[{name:'Fundament',focus:'Startpositie en as sluiten'},{name:'Druk en omschakeling',focus:'Pressingtriggers, flankval en restverdediging'},{name:'Dominantie',focus:'Zelfstandig uitvoeren onder hoge weerstand'}]},[t2]:{activeCycle:0,cycles:[{name:'Opbouw',focus:'Opbouwen onder druk'}]},[t3]:{activeCycle:0,cycles:[{name:'Restverdediging',focus:'3+2 en omschakeling'}]}},
+   smartPeriodisation:{[t1]:{weeks:{[weekStart]:plan1}},[t2]:{weeks:{[weekStart]:plan2}},[t3]:{weeks:{[weekStart]:plan3}}},
+   sessionPlans:{[t1]:{title:'O17-2 · pressingtriggers',date:iso(tue),start:'18:45',cycle:'2',week:'1',session:'1',phase:'Verdedigen → omschakelen',topic:'Pressingtriggers en flankval',players:'16',keepers:'2',field:'70 × 60 meter',staff:'Hoofdtrainer + assistenten',equipment:'Ballen, pionnen, hesjes en doelen',notes:'Demo trainingsschema',objective:plan1.sessions[0].objective,blocks:plan1.sessions[0].blocks}},
+   clubIntelligence:{vision:'Spelers opleiden die wedstrijdinformatie herkennen en zelfstandig oplossingen uitvoeren.',gameModel:'Initiatief nemen met bal, vooruit verdedigen zonder bal en direct reageren in omschakelingen.',methodology:'Van herkenning via weerstand naar zelfstandig wedstrijdgedrag.',principles:['Vooruit spelen wanneer het kan','As sluiten zonder bal','Collectief reageren op dezelfde trigger','Restverdediging bewaken tijdens aanvallen','Na balverlies direct druk of compact herstel'],documents:[],sportlink:{status:'demo',lastSync:null}}
+  }
+ });
+ window.createPublicDemoBackend=()=>({
+  auth:{onAuthStateChange(){},async getSession(){return{data:{session:{user:{id:'public-demo',email:'demo@nextmatch.local'}}},error:null}},async signOut(){}},
+  from(){return{select(){return this},eq(){return this},async maybeSingle(){return{data:window.createPublicDemoWorkspace(),error:null}},async upsert(){return{data:null,error:null}}}}
+ });
+})();
