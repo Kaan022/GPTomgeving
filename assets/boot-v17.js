@@ -18,12 +18,18 @@ async function resetNextMatchCache(){
 
 function render(){
   try{
+    if(window.NM_PUBLIC_DEMO&&ws?.data?.onboarded){
+      const views={desk,debrief,training,periodisation,club:typeof clubIntelligence==='function'?clubIntelligence:desk,tactics,video,identity,settings};
+      A.className='';
+      A.innerHTML=(views[route]||desk)();
+      nmBootCompleted=true;
+      return;
+    }
     if(!C.supabaseUrl||!C.supabaseAnonKey){setup();nmBootCompleted=true;return}
     if(window.NM_PASSWORD_RECOVERY){passwordRecovery();nmBootCompleted=true;return}
     if(!user){auth();nmBootCompleted=true;return}
     if(!ws?.data?.onboarded){onboard();nmBootCompleted=true;return}
-    const clubView=typeof window.clubIntelligence==='function'?window.clubIntelligence:desk;
-    const views={desk,debrief,training,periodisation,club:clubView,tactics,video,identity,settings};
+    const views={desk,debrief,training,periodisation,club:typeof clubIntelligence==='function'?clubIntelligence:desk,tactics,video,identity,settings};
     A.className='';
     A.innerHTML=(views[route]||desk)();
     nmBootCompleted=true;
@@ -34,6 +40,16 @@ async function boot(){
   if(nmBootStarted)return;
   nmBootStarted=true;
   try{
+    if(window.NM_PUBLIC_DEMO){
+      if(typeof window.createPublicDemoWorkspace!=='function'||typeof window.createPublicDemoBackend!=='function')throw new Error('De publieke demo kon niet worden voorbereid.');
+      sb=window.createPublicDemoBackend();
+      user={id:'public-demo',email:'demo@nextmatch.local'};
+      ws=window.createPublicDemoWorkspace();
+      window.save=()=>{};
+      window.logout=()=>{};
+      render();
+      return;
+    }
     if(!C.supabaseUrl||!C.supabaseAnonKey){render();return}
     if(typeof supabase==='undefined')throw new Error('De beveiligde databasebibliotheek kon niet worden geladen.');
     sb=supabase.createClient(C.supabaseUrl,C.supabaseAnonKey,{auth:{persistSession:true,detectSessionInUrl:true,autoRefreshToken:true}});
