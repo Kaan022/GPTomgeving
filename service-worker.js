@@ -1,4 +1,4 @@
-const CACHE_NAME='nextmatch-v17';
+const CACHE_NAME='nextmatch-v18';
 const APP_SHELL=[
   '/GPTomgeving/',
   '/GPTomgeving/index.html',
@@ -7,6 +7,9 @@ const APP_SHELL=[
   '/GPTomgeving/assets/product-v12.css',
   '/GPTomgeving/assets/mobile-v15.css',
   '/GPTomgeving/assets/mobile-v17.js',
+  '/GPTomgeving/assets/club-mobile-v18.js',
+  '/GPTomgeving/assets/club-intelligence-v18.css',
+  '/GPTomgeving/assets/club-intelligence-v18.js',
   '/GPTomgeving/assets/periodisation-ai-v16.css',
   '/GPTomgeving/assets/periodisation-mobile-v16.css',
   '/GPTomgeving/assets/periodisation-ai-v17.js',
