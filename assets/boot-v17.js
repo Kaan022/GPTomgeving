@@ -22,7 +22,8 @@ function render(){
     if(window.NM_PASSWORD_RECOVERY){passwordRecovery();nmBootCompleted=true;return}
     if(!user){auth();nmBootCompleted=true;return}
     if(!ws?.data?.onboarded){onboard();nmBootCompleted=true;return}
-    const views={desk,debrief,training,periodisation,club:clubIntelligence,tactics,video,identity,settings};
+    const clubView=typeof window.clubIntelligence==='function'?window.clubIntelligence:desk;
+    const views={desk,debrief,training,periodisation,club:clubView,tactics,video,identity,settings};
     A.className='';
     A.innerHTML=(views[route]||desk)();
     nmBootCompleted=true;
