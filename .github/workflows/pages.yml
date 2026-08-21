@@ -37,6 +37,7 @@ jobs:
           node --check assets/edge-pdf-v13.js
           node --check assets/drawing-v14.js
           node --check assets/pdf-v14.js
+          node --check assets/public-demo-v19.js
           node --check assets/boot-v17.js
           node --check assets/mobile-v17.js
           node --check assets/periodisation-ai-v17.js
@@ -47,6 +48,8 @@ jobs:
           node --check ai-trust-passport/assets/app.js
       - name: Smoke test application startup
         run: node tests/startup-smoke.js
+      - name: Smoke test public demo
+        run: node tests/public-demo-smoke.js
       - name: Smoke test week planner
         run: node tests/weekplanner-smoke.js
       - name: Smoke test Club Intelligence
