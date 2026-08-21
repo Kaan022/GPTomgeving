@@ -41,12 +41,16 @@ jobs:
           node --check assets/mobile-v17.js
           node --check assets/periodisation-ai-v17.js
           node --check assets/weekplanner-migration-v17.js
+          node --check assets/club-intelligence-v18.js
+          node --check assets/club-mobile-v18.js
           node --check service-worker.js
           node --check ai-trust-passport/assets/app.js
       - name: Smoke test application startup
         run: node tests/startup-smoke.js
       - name: Smoke test week planner
         run: node tests/weekplanner-smoke.js
+      - name: Smoke test Club Intelligence
+        run: node tests/club-intelligence-smoke.js
       - name: Validate PWA manifest
         run: node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8'))"
       - name: Build private coach app and AI Trust Passport
