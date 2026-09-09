@@ -44,6 +44,7 @@ jobs:
           node --check assets/weekplanner-migration-v17.js
           node --check assets/club-intelligence-v18.js
           node --check assets/club-mobile-v18.js
+          node --check assets/club-os-v20.js
           node --check service-worker.js
           node --check ai-trust-passport/assets/app.js
       - name: Smoke test application startup
@@ -54,6 +55,8 @@ jobs:
         run: node tests/weekplanner-smoke.js
       - name: Smoke test Club Intelligence
         run: node tests/club-intelligence-smoke.js
+      - name: Smoke test Club OS v20
+        run: node tests/club-os-v20-smoke.js
       - name: Validate PWA manifest
         run: node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8'))"
       - name: Build private coach app and AI Trust Passport
